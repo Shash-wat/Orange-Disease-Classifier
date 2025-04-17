@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 
 
 model1 = tf.keras.models.load_model("Models/simple_cnn_model.keras")  
-model2 = tf.keras.models.load_model("Models/3_model_vgg.h5")
+#model2 = tf.keras.models.load_model("Models/3_model_vgg.h5")
 model3 = tf.keras.models.load_model("Models/model_convnext.h5")  
 
 
@@ -52,23 +52,20 @@ def classify_image():
     # Prepare image for model1: Simple CNN expects 128x128 input
     img1 = preprocess_image(file_path, (128, 128))
     
-    # Prepare image for model2: VGG expects 224x224 input
-    img2 = preprocess_image(file_path, (224, 224))
-    
     # Extract features for ConvNeXt classifier (model3) using PyTorch timm model.
     convnext_features = extract_pt_features(file_path)  # shape: (1, 768)
     
     # Get predictions
     predictions1 = model1.predict(img1)[0]
-    predictions2 = model2.predict(img2)[0]
+    # predictions2 = model2.predict(img2)[0]
     predictions3 = model3.predict(convnext_features)[0]
     
     # Format prediction results
     result_text1.set("Simple CNN Model Predictions:\n" + 
                      "\n".join([f"{classes[i]}: {predictions1[i] * 100:.2f}%" for i in range(len(classes))]))
     
-    result_text2.set("VGG Model Predictions:\n" + 
-                     "\n".join([f"{classes[i]}: {predictions2[i] * 100:.2f}%" for i in range(len(classes))]))
+    # result_text2.set("VGG Model Predictions:\n" + 
+    #                  "\n".join([f"{classes[i]}: {predictions2[i] * 100:.2f}%" for i in range(len(classes))]))
     
     result_text3.set("ConvNeXt Model Predictions:\n" + 
                      "\n".join([f"{classes[i]}: {predictions3[i] * 100:.2f}%" for i in range(len(classes))]))
@@ -98,12 +95,14 @@ result_text1 = tk.StringVar()
 result_label1 = Label(root, textvariable=result_text1, font=("Arial", 12), fg="blue")
 result_label1.pack(pady=10)
 
-result_text2 = tk.StringVar()
-result_label2 = Label(root, textvariable=result_text2, font=("Arial", 12), fg="red")
-result_label2.pack(pady=10)
+# result_text2 = tk.StringVar()
+# result_label2 = Label(root, textvariable=result_text2, font=("Arial", 12), fg="red")
+# result_label2.pack(pady=10)
 
 result_text3 = tk.StringVar()
 result_label3 = Label(root, textvariable=result_text3, font=("Arial", 12), fg="green")
 result_label3.pack(pady=10)
 
 root.mainloop()
+
+# VGG model is not uploaded , Train it to use for testing.
