@@ -10,3 +10,10 @@ This project focuses on the detection and classification of **orange diseases**,
 - Visualizations of model performance
 - Preprocessing and feature extraction pipeline
 - Organized and reusable codebase
+
+## Dataset Description
+
+The dataset is taken from Mendeley Data Website.
+Dataset consists of around 8500+ images [5.7GB] of orange diseases and healthy oranges. 
+
+- Link : https://data.mendeley.com/datasets/3x8jjd2f72/2
